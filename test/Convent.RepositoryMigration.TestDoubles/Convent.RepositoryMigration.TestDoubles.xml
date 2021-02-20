@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Convent.RepositoryMigration.TestDoubles</name>
+    </assembly>
+    <members>
+        <member name="T:Convent.RepositoryMigration.TestDoubles.AlwaysFailingScriptExecutor">
+            <summary>
+            An implementation of <see cref="T:Convent.RepositoryMigration.Core.IScriptExecutor"/> which will always throw an exception when trying to execute a script.
+            </summary>
+        </member>
+        <member name="M:Convent.RepositoryMigration.TestDoubles.AlwaysFailingScriptExecutor.#ctor(System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Convent.RepositoryMigration.TestDoubles.AlwaysFailingScriptExecutor"/> class.
+            </summary>
+            <param name="exceptionToThrow">The exception to throw.</param>
+        </member>
+        <member name="M:Convent.RepositoryMigration.TestDoubles.AlwaysFailingScriptExecutor.Execute(Convent.RepositoryMigration.Core.MigrationScript)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Convent.RepositoryMigration.TestDoubles.FailBasedOnNameScriptExecutor">
+            <summary>
+            Implementation of the <see cref="T:Convent.RepositoryMigration.Core.IScriptExecutor"/> interface which fails when executing
+            a script name which has contains the string "fail".
+            </summary>
+        </member>
+        <member name="M:Convent.RepositoryMigration.TestDoubles.FailBasedOnNameScriptExecutor.Execute(Convent.RepositoryMigration.Core.MigrationScript)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Convent.RepositoryMigration.TestDoubles.FakeJournal">
+            <summary>
+            Fake implementation of the <see cref="T:Convent.RepositoryMigration.Core.IJournal"/> interface.
+            </summary>
+        </member>
+        <member name="M:Convent.RepositoryMigration.TestDoubles.FakeJournal.GetExecutedScripts">
+            <inheritdoc/>
+        </member>
+        <member name="M:Convent.RepositoryMigration.TestDoubles.FakeJournal.MarkScriptAsExecuted(Convent.RepositoryMigration.Core.MigrationScript)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Convent.RepositoryMigration.TestDoubles.FakeScriptExecutor">
+            <summary>
+            Fake implementation of the <see cref="T:Convent.RepositoryMigration.Core.IScriptExecutor"/> interface.
+            </summary>
+        </member>
+        <member name="M:Convent.RepositoryMigration.TestDoubles.FakeScriptExecutor.Execute(Convent.RepositoryMigration.Core.MigrationScript)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Convent.RepositoryMigration.TestDoubles.FakeScriptProvider">
+            <summary>
+            Fake implementation of the <see cref="T:Convent.RepositoryMigration.Core.IScriptProvider"/> interface.
+            </summary>
+        </member>
+        <member name="M:Convent.RepositoryMigration.TestDoubles.FakeScriptProvider.GetScripts">
+            <inheritdoc/>
+        </member>
+        <member name="T:Convent.RepositoryMigration.TestDoubles.StubJournal">
+            <summary>
+            Stub implementation of the <see cref="T:Convent.RepositoryMigration.Core.IJournal"/> interface.
+            </summary>
+        </member>
+        <member name="M:Convent.RepositoryMigration.TestDoubles.StubJournal.#ctor(System.Collections.Generic.IEnumerable{Convent.RepositoryMigration.Core.MigrationScript})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Convent.RepositoryMigration.TestDoubles.StubJournal"/> class.
+            </summary>
+            <param name="migrationScripts">The collection of scripts that will be used for responses.</param>
+        </member>
+        <member name="M:Convent.RepositoryMigration.TestDoubles.StubJournal.GetExecutedScripts">
+            <inheritdoc/>
+        </member>
+        <member name="M:Convent.RepositoryMigration.TestDoubles.StubJournal.MarkScriptAsExecuted(Convent.RepositoryMigration.Core.MigrationScript)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Convent.RepositoryMigration.TestDoubles.StubScriptProvider">
+            <summary>
+            Stub implementation of the <see cref="T:Convent.RepositoryMigration.Core.IScriptProvider"/> interface.
+            </summary>
+        </member>
+        <member name="M:Convent.RepositoryMigration.TestDoubles.StubScriptProvider.#ctor(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Convent.RepositoryMigration.TestDoubles.StubScriptProvider"/> class.
+            </summary>
+            <param name="migrationScriptNames">The names of the scripts which will be provided by this instance.</param>
+        </member>
+        <member name="M:Convent.RepositoryMigration.TestDoubles.StubScriptProvider.#ctor(System.Collections.Generic.IEnumerable{Convent.RepositoryMigration.Core.MigrationScript})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Convent.RepositoryMigration.TestDoubles.StubScriptProvider"/> class.
+            </summary>
+            <param name="migrationScripts">The scripts which will be provided by this instance.</param>
+        </member>
+        <member name="M:Convent.RepositoryMigration.TestDoubles.StubScriptProvider.GetScripts">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

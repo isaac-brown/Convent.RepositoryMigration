@@ -1,0 +1,167 @@
+using System.Collections.Generic;
+using System.Linq;
+using System;
+using AutoFixture;
+using FluentAssertions;
+using Xunit;
+using FluentAssertions.Execution;
+using Convent.RepositoryMigration.TestDoubles;
+using Convent.RepositoryMigration.AutoFixture;
+
+namespace Convent.RepositoryMigration.Core.Tests
+{
+    /// <summary>
+    /// Unit tests for the <see cref="MigrationEngine"/> class.
+    /// </summary>
+    public class MigrationEngineTests
+    {
+        [Fact]
+        public void Given_configuration_is_null_When_ctor_is_invoked_Then_should_throw_an_ArgumentNullException()
+        {
+            // Arrange.
+            MigrationConfiguration configuration = null!;
+
+            // Act.
+            Action constructInstance = () => _ = new MigrationEngine(configuration);
+
+            // Assert.
+            constructInstance.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void Given_configuration_has_no_script_providers_When_PerformMigration_is_called_Then_result_should_be_success_with_no_scripts_run()
+        {
+            // Arrange.
+            IFixture fixture = new Fixture().WithFakes();
+
+            fixture.Inject(Enumerable.Empty<IScriptProvider>());
+
+            MigrationEngine sut = fixture.Create<MigrationEngine>();
+
+            // Act.
+            MigrationResult actualResult = sut.PerformMigration();
+
+            // Assert.
+            using (new AssertionScope())
+            {
+                actualResult.HasSucceeded.Should().BeTrue();
+                actualResult.ScriptsExecuted.Should().BeEmpty();
+            }
+        }
+
+        [Fact]
+        public void Given_configuration_has_one_or_more_script_providers_When_PerformMigration_is_called_Then_result_and_journal_should_contain_scripts_executed()
+        {
+            // Arrange.
+            IFixture fixture = new Fixture().WithFakes();
+
+            var firstSetOfMigrationScripts = fixture.CreateMany<MigrationScript>();
+            var secondSetOfMigrationScripts = fixture.CreateMany<MigrationScript>();
+
+            var scriptProviders = new[] {
+                new StubScriptProvider(firstSetOfMigrationScripts),
+                new StubScriptProvider(secondSetOfMigrationScripts),
+            };
+
+            fixture.Inject<IEnumerable<IScriptProvider>>(scriptProviders);
+
+            var journal = fixture.Freeze<IJournal>();
+            journal.GetExecutedScripts()
+                   .Should()
+                   .BeEmpty();
+
+            MigrationEngine sut = fixture.Create<MigrationEngine>();
+
+            // Act.
+            var actualResult = sut.PerformMigration();
+
+            // Assert.
+            var expectedScriptsExecuted = firstSetOfMigrationScripts.Concat(secondSetOfMigrationScripts);
+            var expectedJournalEntries = expectedScriptsExecuted.Select(script => script.Name);
+
+            using (new AssertionScope())
+            {
+                actualResult.ScriptsExecuted.Should()
+                                            .BeEquivalentTo(expectedScriptsExecuted);
+
+                journal.GetExecutedScripts()
+                       .Should()
+                       .BeEquivalentTo(expectedJournalEntries);
+            }
+        }
+
+        [Fact]
+        public void Given_journal_contains_all_scripts_provided_When_PerformMigration_is_called_Then_executed_scripts_should_be_empty()
+        {
+            // Arrange.
+            IFixture fixture = new Fixture().WithFakes();
+
+            var migrationScripts = fixture.CreateMany<MigrationScript>();
+
+            var scriptProviders = new[] {
+                new StubScriptProvider(migrationScripts),
+            };
+
+            fixture.Inject<IEnumerable<IScriptProvider>>(scriptProviders);
+
+            IJournal journal = new StubJournal(migrationScripts);
+            fixture.Inject<IJournal>(journal);
+
+
+            MigrationEngine sut = fixture.Create<MigrationEngine>();
+
+            // Act.
+            var actualResult = sut.PerformMigration();
+
+            // Assert.
+            actualResult.ScriptsExecuted.Should()
+                                        .BeEmpty();
+        }
+
+        [Fact]
+        public void Given_a_script_which_fails_to_execute_When_PerformMigration_is_called_Then_result_should_have_failed_with_expected_exception()
+        {
+            // Arrange.
+            IFixture fixture = new Fixture().WithFakes();
+
+            Exception expectedException = new("Something went wrong!");
+            fixture.Inject<IScriptExecutor>(new AlwaysFailingScriptExecutor(expectedException));
+
+            var sut = fixture.Create<MigrationEngine>();
+
+            // Act.
+            var actualResult = sut.PerformMigration();
+
+            // Assert.
+            using (new AssertionScope())
+            {
+                actualResult.HasSucceeded.Should()
+                                         .BeFalse();
+                actualResult.Exception.Should()
+                                      .Be(expectedException);
+            }
+        }
+
+        [Theory]
+        [InlineData(new[] { "001-pass", "002-fail" }, new[] { "001-pass" })]
+        [InlineData(new[] { "001-pass", "003-pass", "002-fail" }, new[] { "001-pass" })]
+        public void Given_a_some_scripts_which_succeed_before_failing_When_PerformMigration_is_called_Then_executed_scripts_should_contain_scripts_which_succeeded(string[] providedScripts, string[] expectedScripts)
+        {
+            // Arrange.
+            IFixture fixture = new Fixture().WithFakes()
+                                            .WithSingle<IScriptProvider>(new StubScriptProvider(providedScripts));
+
+            fixture.Inject<IScriptExecutor>(new FailBasedOnNameScriptExecutor());
+
+            var sut = fixture.Create<MigrationEngine>();
+
+            // Act.
+            var actualResult = sut.PerformMigration();
+
+            // Assert.
+            actualResult.ScriptsExecuted.Select(script => script.Name)
+                                        .Should()
+                                        .BeEquivalentTo(expectedScripts);
+        }
+    }
+}

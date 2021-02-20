@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Convent.RepositoryMigration.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Convent.RepositoryMigration.Core.IJournal">
+            <summary>
+            Used to store and retrieve scripts migrated.
+            </summary>
+        </member>
+        <member name="M:Convent.RepositoryMigration.Core.IJournal.GetExecutedScripts">
+            <summary>
+            Provides the names of scripts that have already been executed.
+            </summary>
+            <returns>A collection of script names.</returns>
+        </member>
+        <member name="M:Convent.RepositoryMigration.Core.IJournal.MarkScriptAsExecuted(Convent.RepositoryMigration.Core.MigrationScript)">
+            <summary>
+            Marks a script as having been executed.
+            </summary>
+            <param name="migrationScript">The script which was executed.</param>
+        </member>
+        <member name="T:Convent.RepositoryMigration.Core.IScriptExecutor">
+            <summary>
+            Represents something which can execute a <see cref="T:Convent.RepositoryMigration.Core.MigrationScript"/>.
+            </summary>
+        </member>
+        <member name="M:Convent.RepositoryMigration.Core.IScriptExecutor.Execute(Convent.RepositoryMigration.Core.MigrationScript)">
+            <summary>
+            Executes the given <paramref name="script"/>.
+            </summary>
+            <param name="script">The script to execute.</param>
+        </member>
+        <member name="T:Convent.RepositoryMigration.Core.IScriptProvider">
+            <summary>
+            Provides <see cref="T:Convent.RepositoryMigration.Core.MigrationScript"/> objects to interested parties.
+            </summary>
+        </member>
+        <member name="M:Convent.RepositoryMigration.Core.IScriptProvider.GetScripts">
+            <summary>
+            Gets all scripts that should be executed.
+            </summary>
+            <returns>A collection of <see cref="T:Convent.RepositoryMigration.Core.MigrationScript"/> objects.</returns>
+        </member>
+        <member name="T:Convent.RepositoryMigration.Core.MigrationConfiguration">
+            <summary>
+            Provides configuration for <see cref="T:Convent.RepositoryMigration.Core.MigrationEngine"/>.
+            </summary>
+        </member>
+        <member name="M:Convent.RepositoryMigration.Core.MigrationConfiguration.#ctor(System.Collections.Generic.IReadOnlyCollection{Convent.RepositoryMigration.Core.IScriptProvider},Convent.RepositoryMigration.Core.IJournal,Convent.RepositoryMigration.Core.IScriptExecutor)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Convent.RepositoryMigration.Core.MigrationConfiguration"/> class.
+            </summary>
+            <param name="scriptProviders">The script providers to use.</param>
+            <param name="journal">The journal to use.</param>
+            <param name="scriptExecutor">The script executor to use.</param>
+        </member>
+        <member name="P:Convent.RepositoryMigration.Core.MigrationConfiguration.ScriptProviders">
+            <summary>
+            Gets the script providers.
+            </summary>
+        </member>
+        <member name="P:Convent.RepositoryMigration.Core.MigrationConfiguration.Journal">
+            <summary>
+            Gets the journal.
+            </summary>
+        </member>
+        <member name="P:Convent.RepositoryMigration.Core.MigrationConfiguration.ScriptExecutor">
+            <summary>
+            Gets the script executor.
+            </summary>
+        </member>
+        <member name="T:Convent.RepositoryMigration.Core.MigrationEngine">
+            <summary>
+            Orchestrats the migration process.
+            </summary>
+        </member>
+        <member name="M:Convent.RepositoryMigration.Core.MigrationEngine.#ctor(Convent.RepositoryMigration.Core.MigrationConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Convent.RepositoryMigration.Core.MigrationEngine"/> class.
+            </summary>
+            <param name="configuration">The configuration to use.</param>
+        </member>
+        <member name="M:Convent.RepositoryMigration.Core.MigrationEngine.PerformMigration">
+            <summary>
+            Performs the migration.
+            </summary>
+            <returns>A new <see cref="T:Convent.RepositoryMigration.Core.MigrationResult"/> instance.</returns>
+        </member>
+        <member name="T:Convent.RepositoryMigration.Core.MigrationResult">
+            <summary>
+            Represents the result of performing a migration, whether it was successfull or not.
+            </summary>
+        </member>
+        <member name="M:Convent.RepositoryMigration.Core.MigrationResult.#ctor(System.Collections.Generic.IEnumerable{Convent.RepositoryMigration.Core.MigrationScript},System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Convent.RepositoryMigration.Core.MigrationResult"/> class.
+            </summary>
+            <param name="scriptsExecuted">The scripts which were executed.</param>
+            <param name="exception">The exception which caused the failure.</param>
+        </member>
+        <member name="P:Convent.RepositoryMigration.Core.MigrationResult.ScriptsExecuted">
+            <summary>
+            Gets the collection of <see cref="T:Convent.RepositoryMigration.Core.MigrationScript"/> objects which were executed during the migration.
+            </summary>
+        </member>
+        <member name="P:Convent.RepositoryMigration.Core.MigrationResult.HasSucceeded">
+            <summary>
+            Gets a value indicating whether the migration was successful.
+            </summary>
+        </member>
+        <member name="P:Convent.RepositoryMigration.Core.MigrationResult.Exception">
+            <summary>
+            Gets the exception which caused the migration to fail.
+            </summary>
+            <remarks>
+            Null indicates that no exception was thrown and the migration was successful.
+            </remarks>
+        </member>
+        <member name="T:Convent.RepositoryMigration.Core.MigrationScript">
+            <summary>
+            Represents a single script which can be run.
+            </summary>
+        </member>
+        <member name="M:Convent.RepositoryMigration.Core.MigrationScript.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Convent.RepositoryMigration.Core.MigrationScript"/> class.
+            </summary>
+            <param name="name">The name of the script.</param>
+            <param name="contents">The contents of the script.</param>
+        </member>
+        <member name="P:Convent.RepositoryMigration.Core.MigrationScript.Name">
+            <summary>
+            Gets the name of the script.
+            </summary>
+        </member>
+        <member name="P:Convent.RepositoryMigration.Core.MigrationScript.Contents">
+            <summary>
+            Gets the contents of the script.
+            </summary>
+        </member>
+    </members>
+</doc>

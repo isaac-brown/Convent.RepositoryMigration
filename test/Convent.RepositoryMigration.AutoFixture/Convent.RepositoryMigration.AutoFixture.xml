@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Convent.RepositoryMigration.AutoFixture</name>
+    </assembly>
+    <members>
+        <member name="T:Convent.RepositoryMigration.AutoFixture.DomainFixtureCustomization">
+            <summary>
+            Domain specific customization for the <see cref="N:Convent.RepositoryMigration"/> namespace.
+            By default fake implementations of all interfaces will be provided.
+            </summary>
+        </member>
+        <member name="M:Convent.RepositoryMigration.AutoFixture.DomainFixtureCustomization.Customize(AutoFixture.IFixture)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Convent.RepositoryMigration.AutoFixture.FixtureExtensions">
+            <summary>
+            Extension methods for <see cref="T:AutoFixture.IFixture"/> instances.
+            </summary>
+        </member>
+        <member name="M:Convent.RepositoryMigration.AutoFixture.FixtureExtensions.WithFakes(AutoFixture.IFixture)">
+            <summary>
+            Customizes the given <paramref name="fixture"/> with fake implementations of interfaces in the domain.
+            </summary>
+            <param name="fixture">The fixture to customize.</param>
+            <returns>The current instance for chaining.</returns>
+        </member>
+        <member name="M:Convent.RepositoryMigration.AutoFixture.FixtureExtensions.WithSingle``1(AutoFixture.IFixture,``0)">
+            <summary>
+            Injects a collection of <typeparamref name="T"/> which contains <paramref name="instance"/> as the only item.
+            </summary>
+            <param name="fixture">The fixture to inject into.</param>
+            <param name="instance">The instance to inject.</param>
+            <typeparam name="T">The type to be injected.</typeparam>
+            <returns>The current instance for chaining.</returns>
+        </member>
+    </members>
+</doc>
