@@ -34,5 +34,24 @@
             <typeparam name="T">The type to be injected.</typeparam>
             <returns>The current instance for chaining.</returns>
         </member>
+        <member name="T:Convent.RepositoryMigration.AutoFixture.MELTFixtureCustomization">
+            <summary>
+            Customizations specific to <see cref="N:MELT"/>.
+            </summary>
+        </member>
+        <member name="M:Convent.RepositoryMigration.AutoFixture.MELTFixtureCustomization.Customize(AutoFixture.IFixture)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Convent.RepositoryMigration.AutoFixture.TestLoggerRelay">
+            <summary>
+            Builds <see cref="T:Microsoft.Extensions.Logging.ILogger`1"/> instances.
+            </summary>
+            <remarks>
+            For this to work you'll want to ensure that <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/> has been provided to AutoFixture.
+            </remarks>
+        </member>
+        <member name="M:Convent.RepositoryMigration.AutoFixture.TestLoggerRelay.Create(System.Object,AutoFixture.Kernel.ISpecimenContext)">
+            <inheritdoc/>
+        </member>
     </members>
 </doc>

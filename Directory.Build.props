@@ -4,13 +4,20 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <!-- Define SolutionDir if it doesn't exist. -->
+    <!-- This is the case when running commands against a project, rather than the solution. -->
+    <PropertyGroup>
+        <!-- Assume that solution directory is up two folders if not defined. -->
+        <SolutionDir Condition="$(SolutionDir) == ''">..\..\</SolutionDir>
+    </PropertyGroup>
+
     <!-- Ensure every project gets the root stylecop.json linked in. -->
     <ItemGroup>
-        <None Remove="$(SolutionDir)\stylecop.json" />
+        <None Remove="$(SolutionDir)stylecop.json" />
     </ItemGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="$(SolutionDir)\stylecop.json" />
+        <AdditionalFiles Include="$(SolutionDir)stylecop.json" />
     </ItemGroup>
 
 </Project>

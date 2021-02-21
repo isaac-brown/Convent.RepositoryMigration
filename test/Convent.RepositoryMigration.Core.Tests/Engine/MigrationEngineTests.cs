@@ -7,6 +7,7 @@ using Xunit;
 using FluentAssertions.Execution;
 using Convent.RepositoryMigration.TestDoubles;
 using Convent.RepositoryMigration.AutoFixture;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Convent.RepositoryMigration.Core.Tests
 {
@@ -22,7 +23,7 @@ namespace Convent.RepositoryMigration.Core.Tests
             MigrationConfiguration configuration = null!;
 
             // Act.
-            Action constructInstance = () => _ = new MigrationEngine(configuration);
+            Action constructInstance = () => _ = new MigrationEngine(configuration, new NullLogger<MigrationEngine>());
 
             // Assert.
             constructInstance.Should().Throw<ArgumentNullException>();

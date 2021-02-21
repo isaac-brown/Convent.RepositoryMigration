@@ -8,6 +8,7 @@ namespace Convent.RepositoryMigration.Core
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Orchestrats the migration process.
@@ -16,14 +17,17 @@ namespace Convent.RepositoryMigration.Core
     public class MigrationEngine
     {
         private readonly MigrationConfiguration configuration;
+        private readonly ILogger<MigrationEngine> logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MigrationEngine"/> class.
         /// </summary>
         /// <param name="configuration">The configuration to use.</param>
-        public MigrationEngine(MigrationConfiguration configuration)
+        /// <param name="logger">The logger to write messages to.</param>
+        public MigrationEngine(MigrationConfiguration configuration, ILogger<MigrationEngine> logger)
         {
-            this.configuration = configuration ?? throw new System.ArgumentNullException(nameof(configuration));
+            this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            this.logger = logger;
         }
 
         /// <summary>
@@ -43,6 +47,7 @@ namespace Convent.RepositoryMigration.Core
             {
                 foreach (var migrationScript in scriptsToExecute)
                 {
+                    this.logger.LogInformation("Executing script {migrationScript.Name}", migrationScript.Name);
                     this.configuration.ScriptExecutor.Execute(migrationScript);
                     scriptsExecuted.Add(migrationScript);
                     this.configuration.Journal.MarkScriptAsExecuted(migrationScript);

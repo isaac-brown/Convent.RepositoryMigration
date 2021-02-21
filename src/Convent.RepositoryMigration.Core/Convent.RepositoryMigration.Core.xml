@@ -76,11 +76,12 @@
             Orchestrats the migration process.
             </summary>
         </member>
-        <member name="M:Convent.RepositoryMigration.Core.MigrationEngine.#ctor(Convent.RepositoryMigration.Core.MigrationConfiguration)">
+        <member name="M:Convent.RepositoryMigration.Core.MigrationEngine.#ctor(Convent.RepositoryMigration.Core.MigrationConfiguration,Microsoft.Extensions.Logging.ILogger{Convent.RepositoryMigration.Core.MigrationEngine})">
             <summary>
             Initializes a new instance of the <see cref="T:Convent.RepositoryMigration.Core.MigrationEngine"/> class.
             </summary>
             <param name="configuration">The configuration to use.</param>
+            <param name="logger">The logger to write messages to.</param>
         </member>
         <member name="M:Convent.RepositoryMigration.Core.MigrationEngine.PerformMigration">
             <summary>

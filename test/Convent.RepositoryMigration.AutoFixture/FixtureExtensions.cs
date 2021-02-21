@@ -19,7 +19,8 @@ namespace Convent.RepositoryMigration.AutoFixture
         /// <returns>The current instance for chaining.</returns>
         public static IFixture WithFakes(this IFixture fixture)
         {
-            return fixture.Customize(new DomainFixtureCustomization());
+            return fixture.Customize(new DomainFixtureCustomization())
+                          .Customize(new MELTFixtureCustomization());
         }
 
         /// <summary>

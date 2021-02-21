@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <PackageReference Include="AutoFixture" Version="4.15.0" />
+      <PackageReference Include="MELT" Version="0.6.0" />
       <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         <PrivateAssets>all</PrivateAssets>
