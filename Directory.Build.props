@@ -20,4 +20,8 @@
         <AdditionalFiles Include="$(SolutionDir)stylecop.json" />
     </ItemGroup>
 
+    <PropertyGroup>
+        <Version>0.0.1</Version>
+    </PropertyGroup>
+
 </Project>

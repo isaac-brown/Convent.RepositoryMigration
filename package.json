@@ -1,0 +1,27 @@
+{
+  "name": "convent.commits",
+  "version": "0.1.0",
+  "description": "Conventional commit message generator.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "release": "standard-version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isaac-brown/Convent.Commits.git"
+  },
+  "author": "Isaac Brown",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/isaac-brown/Convent.Commits/issues"
+  },
+  "homepage": "https://github.com/isaac-brown/Convent.Commits#readme",
+  "dependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "husky": "^4.3.8",
+    "standard-version": "^9.1.0"
+  }
+}
