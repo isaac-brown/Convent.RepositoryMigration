@@ -1,24 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
 
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="AutoFixture.XUnit2" Version="4.15.0" />
+        <PackageReference Include="Bogus" Version="33.0.1" />
+        <PackageReference Include="FluentAssertions" Version="5.10.3" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="xunit" Version="2.4.0" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+        <PackageReference Include="coverlet.collector" Version="1.2.0" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoFixture.XUnit2" Version="4.15.0" />
-    <PackageReference Include="Bogus" Version="33.0.1" />
-    <PackageReference Include="FluentAssertions" Version="5.10.3" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
-    <PackageReference Include="xunit" Version="2.4.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
-    <PackageReference Include="coverlet.collector" Version="1.2.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Convent.RepositoryMigration.Core\Convent.RepositoryMigration.Core.csproj" />
+        <ProjectReference Include="..\Convent.RepositoryMigration.AutoFixture\Convent.RepositoryMigration.AutoFixture.csproj" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Convent.RepositoryMigration.Core\Convent.RepositoryMigration.Core.csproj" />
-    <ProjectReference Include="..\Convent.RepositoryMigration.AutoFixture\Convent.RepositoryMigration.AutoFixture.csproj" />
-  </ItemGroup>
+    <PropertyGroup>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
+    </PropertyGroup>
 
 </Project>

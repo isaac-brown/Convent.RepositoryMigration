@@ -1,20 +1,28 @@
-using System.Linq;
-using AutoFixture;
-using Convent.RepositoryMigration.AutoFixture;
-using Xunit;
-using Microsoft.Extensions.Logging;
-using FluentAssertions;
-using MELT;
+// <copyright file="MigrationEngineLogging.cs" company="Isaac Brown">
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
 
 namespace Convent.RepositoryMigration.Core.Tests.Engine.Output
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Convent.RepositoryMigration.AutoFixture;
+    using FluentAssertions;
+    using global::AutoFixture;
+    using MELT;
+    using Microsoft.Extensions.Logging;
+    using Xunit;
+
     /// <summary>
     /// Unit tests for the <see cref="MigrationEngine"/> which focus specifically on logging output.
     /// </summary>
     public class MigrationEngineLogging
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable SA1600 // Elements must be documented
+
         [Fact]
-        public void Given_a_collection_of_scripts_which_all_succeed_When_PerformMigration_is_called_Then_should_have_logged_message_for_each_script_executed()
+        public async Task Given_a_collection_of_scripts_which_all_succeed_When_PerformMigrationAsync_is_called_Then_should_have_logged_message_for_each_script_executed()
         {
             // Arrange.
             IFixture fixture = new Fixture().WithFakes();
@@ -23,7 +31,7 @@ namespace Convent.RepositoryMigration.Core.Tests.Engine.Output
             var sut = fixture.Create<MigrationEngine>();
 
             // Act.
-            var migrationResult = sut.PerformMigration();
+            var migrationResult = await sut.PerformMigrationAsync();
 
             // Assert.
             var expectedScriptNames = migrationResult.ScriptsExecuted.Select(script => $"Executing script {script.Name}");

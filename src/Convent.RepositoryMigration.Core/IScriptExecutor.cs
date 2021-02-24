@@ -4,15 +4,20 @@
 
 namespace Convent.RepositoryMigration.Core
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Represents something which can execute a <see cref="MigrationScript"/>.
     /// </summary>
     public interface IScriptExecutor
     {
         /// <summary>
-        /// Executes the given <paramref name="script"/>.
+        /// Asynchronously executes the given <paramref name="script"/>.
         /// </summary>
         /// <param name="script">The script to execute.</param>
-        void Execute(MigrationScript script);
+        /// <param name="cancellationToken">The cancellation to token to use.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task ExecuteAsync(MigrationScript script, CancellationToken cancellationToken = default);
     }
 }

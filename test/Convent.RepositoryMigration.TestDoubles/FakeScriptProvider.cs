@@ -5,6 +5,8 @@
 namespace Convent.RepositoryMigration.TestDoubles
 {
     using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Bogus;
     using Convent.RepositoryMigration.Core;
 
@@ -24,7 +26,12 @@ namespace Convent.RepositoryMigration.TestDoubles
         }
 
         /// <inheritdoc/>
-        public IReadOnlyCollection<MigrationScript> GetScripts()
+        public Task<IReadOnlyCollection<MigrationScript>> GetScriptsAsync(CancellationToken cancellationToken)
+        {
+            return Task.FromResult(GetScripts());
+        }
+
+        private static IReadOnlyCollection<MigrationScript> GetScripts()
         {
             return ScriptFaker.Generate(count: 3);
         }

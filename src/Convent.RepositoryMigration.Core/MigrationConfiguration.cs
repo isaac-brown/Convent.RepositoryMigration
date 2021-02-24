@@ -5,6 +5,7 @@
 namespace Convent.RepositoryMigration.Core
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Provides configuration for <see cref="MigrationEngine"/>.
@@ -18,13 +19,13 @@ namespace Convent.RepositoryMigration.Core
         /// <param name="journal">The journal to use.</param>
         /// <param name="scriptExecutor">The script executor to use.</param>
         public MigrationConfiguration(
-            IReadOnlyCollection<IScriptProvider> scriptProviders,
+            IEnumerable<IScriptProvider> scriptProviders,
             IJournal journal,
             IScriptExecutor scriptExecutor)
         {
             this.Journal = journal;
             this.ScriptExecutor = scriptExecutor;
-            this.ScriptProviders = scriptProviders;
+            this.ScriptProviders = scriptProviders.ToList();
         }
 
         /// <summary>

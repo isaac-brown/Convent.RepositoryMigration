@@ -7,6 +7,8 @@ namespace Convent.RepositoryMigration.TestDoubles
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Convent.RepositoryMigration.Core;
 
     /// <summary>
@@ -26,14 +28,25 @@ namespace Convent.RepositoryMigration.TestDoubles
         }
 
         /// <inheritdoc/>
-        public IReadOnlyCollection<string> GetExecutedScripts()
+        public Task MarkScriptAsExecutedAsync(MigrationScript migrationScript, CancellationToken cancellationToken = default)
+        {
+            this.MarkScriptAsExecuted(migrationScript);
+            return Task.CompletedTask;
+        }
+
+        /// <inheritdoc/>
+        public Task<IReadOnlyCollection<string>> GetExecutedScriptsAsync(CancellationToken cancellationToken = default)
+        {
+            return Task.FromResult(this.GetExecutedScripts());
+        }
+
+        private IReadOnlyCollection<string> GetExecutedScripts()
         {
             return this.migrationScripts.Select(script => script.Name)
                                         .ToImmutableList();
         }
 
-        /// <inheritdoc/>
-        public void MarkScriptAsExecuted(MigrationScript migrationScript)
+        private void MarkScriptAsExecuted(MigrationScript migrationScript)
         {
             throw new System.NotImplementedException();
         }

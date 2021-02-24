@@ -4,6 +4,8 @@
 
 namespace Convent.RepositoryMigration.TestDoubles
 {
+    using System.Threading;
+    using System.Threading.Tasks;
     using Convent.RepositoryMigration.Core;
 
     /// <summary>
@@ -12,9 +14,9 @@ namespace Convent.RepositoryMigration.TestDoubles
     public class FakeScriptExecutor : IScriptExecutor
     {
         /// <inheritdoc/>
-        public void Execute(MigrationScript script)
+        public Task ExecuteAsync(MigrationScript script, CancellationToken cancellationToken = default)
         {
-            // No-op.
+            return Task.CompletedTask;
         }
     }
 }

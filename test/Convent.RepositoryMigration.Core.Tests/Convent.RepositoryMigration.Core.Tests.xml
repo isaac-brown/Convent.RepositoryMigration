@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Convent.RepositoryMigration.Core.Tests</name>
+    </assembly>
+    <members>
+        <member name="T:Convent.RepositoryMigration.Core.Tests.MigrationEngineTests">
+            <summary>
+            Unit tests for the <see cref="T:Convent.RepositoryMigration.Core.MigrationEngine"/> class.
+            </summary>
+        </member>
+        <member name="T:Convent.RepositoryMigration.Core.Tests.Engine.Output.MigrationEngineLogging">
+            <summary>
+            Unit tests for the <see cref="T:Convent.RepositoryMigration.Core.MigrationEngine"/> which focus specifically on logging output.
+            </summary>
+        </member>
+    </members>
+</doc>

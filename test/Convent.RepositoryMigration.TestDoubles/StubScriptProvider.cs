@@ -7,6 +7,8 @@ namespace Convent.RepositoryMigration.TestDoubles
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Bogus;
     using Convent.RepositoryMigration.Core;
 
@@ -38,7 +40,12 @@ namespace Convent.RepositoryMigration.TestDoubles
         }
 
         /// <inheritdoc/>
-        public IReadOnlyCollection<MigrationScript> GetScripts()
+        public Task<IReadOnlyCollection<MigrationScript>> GetScriptsAsync(CancellationToken cancellationToken)
+        {
+            return Task.FromResult(this.GetScripts());
+        }
+
+        private IReadOnlyCollection<MigrationScript> GetScripts()
         {
             return this.migrationScripts.ToImmutableList();
         }

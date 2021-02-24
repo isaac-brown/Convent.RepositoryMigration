@@ -5,6 +5,8 @@
 namespace Convent.RepositoryMigration.Core
 {
     using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Used to store and retrieve scripts migrated.
@@ -14,13 +16,16 @@ namespace Convent.RepositoryMigration.Core
         /// <summary>
         /// Provides the names of scripts that have already been executed.
         /// </summary>
+        /// <param name="cancellationToken">Used to cancel fetching.</param>
         /// <returns>A collection of script names.</returns>
-        IReadOnlyCollection<string> GetExecutedScripts();
+        Task<IReadOnlyCollection<string>> GetExecutedScriptsAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Marks a script as having been executed.
+        /// Asynchronously arks a script as having been executed.
         /// </summary>
         /// <param name="migrationScript">The script which was executed.</param>
-        void MarkScriptAsExecuted(MigrationScript migrationScript);
+        /// <param name="cancellationToken">Used to cancel execution of the script.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task MarkScriptAsExecutedAsync(MigrationScript migrationScript, CancellationToken cancellationToken = default);
     }
 }

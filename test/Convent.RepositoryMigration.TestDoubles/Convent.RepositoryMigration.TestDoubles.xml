@@ -15,7 +15,7 @@
             </summary>
             <param name="exceptionToThrow">The exception to throw.</param>
         </member>
-        <member name="M:Convent.RepositoryMigration.TestDoubles.AlwaysFailingScriptExecutor.Execute(Convent.RepositoryMigration.Core.MigrationScript)">
+        <member name="M:Convent.RepositoryMigration.TestDoubles.AlwaysFailingScriptExecutor.ExecuteAsync(Convent.RepositoryMigration.Core.MigrationScript,System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
         <member name="T:Convent.RepositoryMigration.TestDoubles.FailBasedOnNameScriptExecutor">
@@ -24,7 +24,7 @@
             a script name which has contains the string "fail".
             </summary>
         </member>
-        <member name="M:Convent.RepositoryMigration.TestDoubles.FailBasedOnNameScriptExecutor.Execute(Convent.RepositoryMigration.Core.MigrationScript)">
+        <member name="M:Convent.RepositoryMigration.TestDoubles.FailBasedOnNameScriptExecutor.ExecuteAsync(Convent.RepositoryMigration.Core.MigrationScript,System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
         <member name="T:Convent.RepositoryMigration.TestDoubles.FakeJournal">
@@ -32,10 +32,10 @@
             Fake implementation of the <see cref="T:Convent.RepositoryMigration.Core.IJournal"/> interface.
             </summary>
         </member>
-        <member name="M:Convent.RepositoryMigration.TestDoubles.FakeJournal.GetExecutedScripts">
+        <member name="M:Convent.RepositoryMigration.TestDoubles.FakeJournal.MarkScriptAsExecutedAsync(Convent.RepositoryMigration.Core.MigrationScript,System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
-        <member name="M:Convent.RepositoryMigration.TestDoubles.FakeJournal.MarkScriptAsExecuted(Convent.RepositoryMigration.Core.MigrationScript)">
+        <member name="M:Convent.RepositoryMigration.TestDoubles.FakeJournal.GetExecutedScriptsAsync(System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
         <member name="T:Convent.RepositoryMigration.TestDoubles.FakeScriptExecutor">
@@ -43,7 +43,7 @@
             Fake implementation of the <see cref="T:Convent.RepositoryMigration.Core.IScriptExecutor"/> interface.
             </summary>
         </member>
-        <member name="M:Convent.RepositoryMigration.TestDoubles.FakeScriptExecutor.Execute(Convent.RepositoryMigration.Core.MigrationScript)">
+        <member name="M:Convent.RepositoryMigration.TestDoubles.FakeScriptExecutor.ExecuteAsync(Convent.RepositoryMigration.Core.MigrationScript,System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
         <member name="T:Convent.RepositoryMigration.TestDoubles.FakeScriptProvider">
@@ -51,7 +51,7 @@
             Fake implementation of the <see cref="T:Convent.RepositoryMigration.Core.IScriptProvider"/> interface.
             </summary>
         </member>
-        <member name="M:Convent.RepositoryMigration.TestDoubles.FakeScriptProvider.GetScripts">
+        <member name="M:Convent.RepositoryMigration.TestDoubles.FakeScriptProvider.GetScriptsAsync(System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
         <member name="T:Convent.RepositoryMigration.TestDoubles.StubJournal">
@@ -65,10 +65,10 @@
             </summary>
             <param name="migrationScripts">The collection of scripts that will be used for responses.</param>
         </member>
-        <member name="M:Convent.RepositoryMigration.TestDoubles.StubJournal.GetExecutedScripts">
+        <member name="M:Convent.RepositoryMigration.TestDoubles.StubJournal.MarkScriptAsExecutedAsync(Convent.RepositoryMigration.Core.MigrationScript,System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
-        <member name="M:Convent.RepositoryMigration.TestDoubles.StubJournal.MarkScriptAsExecuted(Convent.RepositoryMigration.Core.MigrationScript)">
+        <member name="M:Convent.RepositoryMigration.TestDoubles.StubJournal.GetExecutedScriptsAsync(System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
         <member name="T:Convent.RepositoryMigration.TestDoubles.StubScriptProvider">
@@ -88,7 +88,7 @@
             </summary>
             <param name="migrationScripts">The scripts which will be provided by this instance.</param>
         </member>
-        <member name="M:Convent.RepositoryMigration.TestDoubles.StubScriptProvider.GetScripts">
+        <member name="M:Convent.RepositoryMigration.TestDoubles.StubScriptProvider.GetScriptsAsync(System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
     </members>

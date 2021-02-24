@@ -9,38 +9,44 @@
             Used to store and retrieve scripts migrated.
             </summary>
         </member>
-        <member name="M:Convent.RepositoryMigration.Core.IJournal.GetExecutedScripts">
+        <member name="M:Convent.RepositoryMigration.Core.IJournal.GetExecutedScriptsAsync(System.Threading.CancellationToken)">
             <summary>
             Provides the names of scripts that have already been executed.
             </summary>
+            <param name="cancellationToken">Used to cancel fetching.</param>
             <returns>A collection of script names.</returns>
         </member>
-        <member name="M:Convent.RepositoryMigration.Core.IJournal.MarkScriptAsExecuted(Convent.RepositoryMigration.Core.MigrationScript)">
+        <member name="M:Convent.RepositoryMigration.Core.IJournal.MarkScriptAsExecutedAsync(Convent.RepositoryMigration.Core.MigrationScript,System.Threading.CancellationToken)">
             <summary>
-            Marks a script as having been executed.
+            Asynchronously arks a script as having been executed.
             </summary>
             <param name="migrationScript">The script which was executed.</param>
+            <param name="cancellationToken">Used to cancel execution of the script.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
         </member>
         <member name="T:Convent.RepositoryMigration.Core.IScriptExecutor">
             <summary>
             Represents something which can execute a <see cref="T:Convent.RepositoryMigration.Core.MigrationScript"/>.
             </summary>
         </member>
-        <member name="M:Convent.RepositoryMigration.Core.IScriptExecutor.Execute(Convent.RepositoryMigration.Core.MigrationScript)">
+        <member name="M:Convent.RepositoryMigration.Core.IScriptExecutor.ExecuteAsync(Convent.RepositoryMigration.Core.MigrationScript,System.Threading.CancellationToken)">
             <summary>
-            Executes the given <paramref name="script"/>.
+            Asynchronously executes the given <paramref name="script"/>.
             </summary>
             <param name="script">The script to execute.</param>
+            <param name="cancellationToken">The cancellation to token to use.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
         </member>
         <member name="T:Convent.RepositoryMigration.Core.IScriptProvider">
             <summary>
             Provides <see cref="T:Convent.RepositoryMigration.Core.MigrationScript"/> objects to interested parties.
             </summary>
         </member>
-        <member name="M:Convent.RepositoryMigration.Core.IScriptProvider.GetScripts">
+        <member name="M:Convent.RepositoryMigration.Core.IScriptProvider.GetScriptsAsync(System.Threading.CancellationToken)">
             <summary>
-            Gets all scripts that should be executed.
+            Asynchronously gets all scripts that should be executed.
             </summary>
+            <param name="cancellationToken">Used to cancel fetching of scripts.</param>
             <returns>A collection of <see cref="T:Convent.RepositoryMigration.Core.MigrationScript"/> objects.</returns>
         </member>
         <member name="T:Convent.RepositoryMigration.Core.MigrationConfiguration">
@@ -48,7 +54,7 @@
             Provides configuration for <see cref="T:Convent.RepositoryMigration.Core.MigrationEngine"/>.
             </summary>
         </member>
-        <member name="M:Convent.RepositoryMigration.Core.MigrationConfiguration.#ctor(System.Collections.Generic.IReadOnlyCollection{Convent.RepositoryMigration.Core.IScriptProvider},Convent.RepositoryMigration.Core.IJournal,Convent.RepositoryMigration.Core.IScriptExecutor)">
+        <member name="M:Convent.RepositoryMigration.Core.MigrationConfiguration.#ctor(System.Collections.Generic.IEnumerable{Convent.RepositoryMigration.Core.IScriptProvider},Convent.RepositoryMigration.Core.IJournal,Convent.RepositoryMigration.Core.IScriptExecutor)">
             <summary>
             Initializes a new instance of the <see cref="T:Convent.RepositoryMigration.Core.MigrationConfiguration"/> class.
             </summary>
@@ -83,10 +89,11 @@
             <param name="configuration">The configuration to use.</param>
             <param name="logger">The logger to write messages to.</param>
         </member>
-        <member name="M:Convent.RepositoryMigration.Core.MigrationEngine.PerformMigration">
+        <member name="M:Convent.RepositoryMigration.Core.MigrationEngine.PerformMigrationAsync(System.Threading.CancellationToken)">
             <summary>
-            Performs the migration.
+            Asynchronously performs the migration.
             </summary>
+            <param name="cancellationToken">Used to cancel the migration.</param>
             <returns>A new <see cref="T:Convent.RepositoryMigration.Core.MigrationResult"/> instance.</returns>
         </member>
         <member name="T:Convent.RepositoryMigration.Core.MigrationResult">

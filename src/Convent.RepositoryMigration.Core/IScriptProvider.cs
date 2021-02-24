@@ -5,6 +5,8 @@
 namespace Convent.RepositoryMigration.Core
 {
     using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Provides <see cref="MigrationScript"/> objects to interested parties.
@@ -12,9 +14,10 @@ namespace Convent.RepositoryMigration.Core
     public interface IScriptProvider
     {
         /// <summary>
-        /// Gets all scripts that should be executed.
+        /// Asynchronously gets all scripts that should be executed.
         /// </summary>
+        /// <param name="cancellationToken">Used to cancel fetching of scripts.</param>
         /// <returns>A collection of <see cref="MigrationScript"/> objects.</returns>
-        IReadOnlyCollection<MigrationScript> GetScripts();
+        Task<IReadOnlyCollection<MigrationScript>> GetScriptsAsync(CancellationToken cancellationToken = default);
     }
 }

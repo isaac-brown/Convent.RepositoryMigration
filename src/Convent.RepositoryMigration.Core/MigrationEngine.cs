@@ -8,6 +8,8 @@ namespace Convent.RepositoryMigration.Core
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Microsoft.Extensions.Logging;
 
     /// <summary>
@@ -31,15 +33,20 @@ namespace Convent.RepositoryMigration.Core
         }
 
         /// <summary>
-        /// Performs the migration.
+        /// Asynchronously performs the migration.
         /// </summary>
+        /// <param name="cancellationToken">Used to cancel the migration.</param>
         /// <returns>A new <see cref="MigrationResult"/> instance.</returns>
-        public MigrationResult PerformMigration()
+        public async Task<MigrationResult> PerformMigrationAsync(CancellationToken cancellationToken = default)
         {
-            var scriptsPreviouslyExecuted = this.configuration.Journal.GetExecutedScripts();
-            var scriptsProvided = this.configuration.ScriptProviders.SelectMany(provider => provider.GetScripts())
-                                                                    .OrderBy(script => script.Name);
-            var scriptsToExecute = scriptsProvided.Where(script => !scriptsPreviouslyExecuted.Contains(script.Name));
+            var scriptsPreviouslyExecuted = await this.configuration.Journal.GetExecutedScriptsAsync(cancellationToken);
+
+            // Get all scripts from all providers, flatten them and then order by the script name.
+            var provideScriptTasks = this.configuration.ScriptProviders.Select(provider => provider.GetScriptsAsync(cancellationToken));
+            var providedScripts = (await Task.WhenAll(provideScriptTasks)).SelectMany(scripts => scripts)
+                                                                          .OrderBy(script => script.Name);
+
+            var scriptsToExecute = providedScripts.Where(script => !scriptsPreviouslyExecuted.Contains(script.Name));
 
             var scriptsExecuted = new List<MigrationScript>();
 
@@ -48,9 +55,9 @@ namespace Convent.RepositoryMigration.Core
                 foreach (var migrationScript in scriptsToExecute)
                 {
                     this.logger.LogInformation("Executing script {migrationScript.Name}", migrationScript.Name);
-                    this.configuration.ScriptExecutor.Execute(migrationScript);
+                    await this.configuration.ScriptExecutor.ExecuteAsync(migrationScript, cancellationToken);
                     scriptsExecuted.Add(migrationScript);
-                    this.configuration.Journal.MarkScriptAsExecuted(migrationScript);
+                    await this.configuration.Journal.MarkScriptAsExecutedAsync(migrationScript, cancellationToken);
                 }
             }
             catch (Exception exception)
