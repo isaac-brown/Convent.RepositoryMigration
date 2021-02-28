@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <ItemGroup>
+        <ProjectReference Include="..\Convent.RepositoryMigration.Core\Convent.RepositoryMigration.Core.csproj" />
+        <ProjectReference Include="..\Convent.RepositoryMigration.Journals.Json\Convent.RepositoryMigration.Journals.Json.csproj" />
+        <ProjectReference Include="..\Convent.RepositoryMigration.ScriptProviders.Directory\Convent.RepositoryMigration.ScriptProviders.Directory.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoFac" Version="6.1.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="5.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+        <PackageReference Include="Microsoft.Powershell.SDK" Version="7.1.2" />
+        <PackageReference Include="Serilog" Version="2.10.0" />
+        <PackageReference Include="Serilog.Extensions.Hosting" Version="4.1.0" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+        <PackageReference Include="System.IO.Abstractions" Version="13.2.23" />
+        <PackageReference Include="System.Management.Automation" Version="7.1.2" />
+    </ItemGroup>
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+
+</Project>

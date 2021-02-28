@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Convent.RepositoryMigration.Journals.Json</name>
+    </assembly>
+    <members>
+        <member name="T:Convent.RepositoryMigration.Journals.JournalOptions">
+            <summary>
+            Options for journaling.
+            </summary>
+        </member>
+        <member name="P:Convent.RepositoryMigration.Journals.JournalOptions.BaseDirectory">
+            <summary>
+            Gets or sets the directory to which migrations will be applied.
+            </summary>
+        </member>
+        <member name="P:Convent.RepositoryMigration.Journals.JournalOptions.JournalFileName">
+            <summary>
+            Gets or sets the name of the journal file.
+            Default is "journal.json".
+            </summary>
+        </member>
+        <member name="P:Convent.RepositoryMigration.Journals.JournalOptions.JournalFilePath">
+            <summary>
+            Gets the full file path to the journal file.
+            </summary>
+        </member>
+        <member name="T:Convent.RepositoryMigration.Journals.JsonJournal">
+            <summary>
+            Implementation of <see cref="T:Convent.RepositoryMigration.Core.IJournal"/> which uses a json file for persistence.
+            </summary>
+        </member>
+        <member name="M:Convent.RepositoryMigration.Journals.JsonJournal.#ctor(Convent.RepositoryMigration.Journals.JournalOptions,System.IO.Abstractions.IFileSystem)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Convent.RepositoryMigration.Journals.JsonJournal"/> class.
+            </summary>
+            <param name="options">The options to use.</param>
+            <param name="fileSystem">The filesystem to use.</param>
+        </member>
+        <member name="M:Convent.RepositoryMigration.Journals.JsonJournal.GetExecutedScriptsAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Convent.RepositoryMigration.Journals.JsonJournal.MarkScriptAsExecutedAsync(Convent.RepositoryMigration.Core.MigrationScript,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Convent.RepositoryMigration.Journals.JsonJournal.MyJournalEntry.ScriptName">
+            <summary>
+            Gets or sets the name of the script.
+            </summary>
+        </member>
+        <member name="M:Convent.RepositoryMigration.Journals.JsonJournal.MyJournalEntry.FromMigrationScript(Convent.RepositoryMigration.Core.MigrationScript)">
+            <summary>
+            Creates a new <see cref="T:Convent.RepositoryMigration.Journals.JsonJournal.MyJournalEntry"/> instance based on the given <paramref name="migrationScript"/>.
+            </summary>
+            <param name="migrationScript">The migration script to use.</param>
+            <returns>A new <see cref="T:Convent.RepositoryMigration.Journals.JsonJournal.MyJournalEntry"/> instance.</returns>
+        </member>
+    </members>
+</doc>

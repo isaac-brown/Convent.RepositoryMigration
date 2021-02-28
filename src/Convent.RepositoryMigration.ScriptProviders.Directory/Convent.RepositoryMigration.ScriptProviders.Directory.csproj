@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="System.IO.Abstractions" Version="13.2.23" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Convent.RepositoryMigration.Core\Convent.RepositoryMigration.Core.csproj" />
+    </ItemGroup>
+
+
+</Project>
