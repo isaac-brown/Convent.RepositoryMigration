@@ -19,7 +19,7 @@ namespace Convent.RepositoryMigration.TestDoubles
     {
         private readonly IEnumerable<MigrationScript> migrationScripts;
 
-        private readonly Faker faker = new ();
+        private readonly Faker faker = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StubScriptProvider"/> class.

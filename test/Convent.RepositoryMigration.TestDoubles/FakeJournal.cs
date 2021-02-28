@@ -14,7 +14,7 @@ namespace Convent.RepositoryMigration.TestDoubles
     /// </summary>
     public class FakeJournal : IJournal
     {
-        private readonly List<string> executedScripts = new ();
+        private readonly List<string> executedScripts = new();
 
         /// <inheritdoc/>
         public Task MarkScriptAsExecutedAsync(MigrationScript migrationScript, CancellationToken cancellationToken = default)

@@ -15,13 +15,13 @@ namespace Convent.RepositoryMigration.TestDoubles
     /// </summary>
     public class FakeScriptProvider : IScriptProvider
     {
-        private static readonly Faker<MigrationScript> ScriptFaker = new ();
+        private static readonly Faker<MigrationScript> ScriptFaker = new();
 
         static FakeScriptProvider()
         {
             ScriptFaker.CustomInstantiator(f =>
             {
-                return new MigrationScript(name: f.System.FileName(), contents: f.Random.Words());
+                return new MigrationScript(Name: f.System.FileName(), Contents: f.Random.Words());
             });
         }
 

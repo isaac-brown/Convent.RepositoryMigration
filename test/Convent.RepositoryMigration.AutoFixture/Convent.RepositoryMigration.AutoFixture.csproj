@@ -8,10 +8,6 @@
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
-    <PropertyGroup>
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
-    </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="AutoFixture" Version="4.15.0" />

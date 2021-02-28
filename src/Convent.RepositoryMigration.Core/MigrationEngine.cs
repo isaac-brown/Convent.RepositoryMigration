@@ -54,7 +54,7 @@ namespace Convent.RepositoryMigration.Core
             {
                 foreach (var migrationScript in scriptsToExecute)
                 {
-                    this.logger.LogInformation("Executing script {migrationScript.Name}", migrationScript.Name);
+                    this.logger.LogInformation("Executing script {Name}", migrationScript.Name);
                     await this.configuration.ScriptExecutor.ExecuteAsync(migrationScript, cancellationToken);
                     scriptsExecuted.Add(migrationScript);
                     await this.configuration.Journal.MarkScriptAsExecutedAsync(migrationScript, cancellationToken);
@@ -62,6 +62,7 @@ namespace Convent.RepositoryMigration.Core
             }
             catch (Exception exception)
             {
+                this.logger.LogError(exception, "Failed to execute scripts");
                 return new MigrationResult(scriptsExecuted, exception);
             }
 

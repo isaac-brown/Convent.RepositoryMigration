@@ -134,7 +134,7 @@ namespace Convent.RepositoryMigration.Core.Tests
             // Arrange.
             IFixture fixture = new Fixture().WithFakes();
 
-            Exception expectedException = new ("Something went wrong!");
+            Exception expectedException = new("Something went wrong!");
             fixture.Inject<IScriptExecutor>(new AlwaysFailingScriptExecutor(expectedException));
 
             var sut = fixture.Create<MigrationEngine>();

@@ -18,11 +18,11 @@ namespace Convent.RepositoryMigration.TestDoubles
         /// <inheritdoc/>
         public Task ExecuteAsync(MigrationScript script, CancellationToken cancellationToken = default)
         {
-            this.Execute(script);
+            Execute(script);
             return Task.CompletedTask;
         }
 
-        private void Execute(MigrationScript script)
+        private static void Execute(MigrationScript script)
         {
             if (script.Name.Contains("fail", StringComparison.CurrentCultureIgnoreCase))
             {
