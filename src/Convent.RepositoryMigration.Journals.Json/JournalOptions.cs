@@ -15,7 +15,7 @@ namespace Convent.RepositoryMigration.Journals
         /// <summary>
         /// Gets or sets the directory to which migrations will be applied.
         /// </summary>
-        public string BaseDirectory { get; set; } = AppContext.BaseDirectory;
+        public string TargetDirectory { get; set; } = Environment.CurrentDirectory;
 
         /// <summary>
         /// Gets or sets the name of the journal file.
@@ -26,6 +26,6 @@ namespace Convent.RepositoryMigration.Journals
         /// <summary>
         /// Gets the full file path to the journal file.
         /// </summary>
-        public string JournalFilePath => Path.Join(this.BaseDirectory, this.JournalFileName);
+        public string JournalFilePath => Path.Join(this.TargetDirectory, this.JournalFileName);
     }
 }

@@ -32,7 +32,10 @@ namespace Convent.RepositoryMigration.Powershell
         /// <param name="scriptPreprocessors">The preprocessors to use.</param>
         /// <param name="fileSystem">The file system to use.</param>
         /// <param name="logger">The logger to write messages to.</param>
-        public PowershellScriptExecutor(IEnumerable<IScriptPreprocessor> scriptPreprocessors, IFileSystem fileSystem, ILogger<PowershellScriptExecutor> logger)
+        public PowershellScriptExecutor(
+            IEnumerable<IScriptPreprocessor> scriptPreprocessors,
+            IFileSystem fileSystem,
+            ILogger<PowershellScriptExecutor> logger)
         {
             this.scriptPreprocessors = scriptPreprocessors;
             this.fileSystem = fileSystem;

@@ -30,6 +30,11 @@ namespace Convent.RepositoryMigration.AutoFixture
 
             fixture.Customizations.Add(
                 new TypeRelay(
+                    typeof(IPostScriptExecutor),
+                    typeof(FakePostScriptExecutor)));
+
+            fixture.Customizations.Add(
+                new TypeRelay(
                     typeof(IScriptProvider),
                     typeof(FakeScriptProvider)));
         }

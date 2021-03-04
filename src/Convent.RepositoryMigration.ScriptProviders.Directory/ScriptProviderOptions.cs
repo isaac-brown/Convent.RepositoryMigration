@@ -15,6 +15,6 @@ namespace Convent.RepositoryMigration.ScriptProviders
         /// <summary>
         /// Gets or sets the directory in which script files are held.
         /// </summary>
-        public string ScriptsDirectory { get; set; } = Path.Join(AppContext.BaseDirectory, "scripts");
+        public string ScriptsDirectory { get; set; } = Path.Join(Environment.CurrentDirectory, "scripts");
     }
 }

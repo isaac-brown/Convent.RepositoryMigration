@@ -67,9 +67,12 @@ namespace Convent.RepositoryMigration.Powershell
                                        .Get<ScriptProviderOptions?>() ?? new ScriptProviderOptions();
             builder.RegisterInstance(options);
 
-            var jsonOptions = configuration.GetSection(nameof(JournalOptions))
-                                           .Get<JournalOptions?>() ?? new JournalOptions();
-            builder.RegisterInstance(jsonOptions);
+            var journalOptions = configuration.Get<JournalOptions?>() ?? new JournalOptions();
+            builder.RegisterInstance(journalOptions);
+
+            var gitOptions = configuration.Get<GitOptions?>() ?? new GitOptions();
+
+            builder.RegisterInstance(gitOptions);
 
             // Logging.
             var logger = new LoggerConfiguration()
@@ -81,11 +84,6 @@ namespace Convent.RepositoryMigration.Powershell
 
             builder.RegisterInstance(factory);
 
-            // builder.RegisterInstance<ILoggerFactory>(
-            //     LoggerFactory.Create(builder =>
-            //     {
-            //         builder.AddConsole();
-            //     }));
             builder.RegisterGeneric(typeof(Logger<>))
                     .As(typeof(ILogger<>))
                     .SingleInstance();
@@ -99,11 +97,14 @@ namespace Convent.RepositoryMigration.Powershell
             builder.RegisterType<MigrationConfiguration>();
             builder.RegisterType<JsonJournal>().As<IJournal>();
             builder.RegisterType<DirectoryScriptProvider>().As<IScriptProvider>();
-            builder.RegisterType<PowershellScriptExecutor>().As<IScriptExecutor>();
             builder.RegisterType<VariableSubstitutionPreprocessor>().As<IScriptPreprocessor>();
+            builder.RegisterType<PowershellScriptExecutor>().As<IScriptExecutor>();
+            builder.RegisterType<GitCommitPostScriptExecutor>().As<IPostScriptExecutor>();
             var variables = new ScriptVariables(new Dictionary<string, string> { });
             builder.RegisterInstance(variables);
-            builder.RegisterInstance(new RepositoryDirectoryScriptPreprocessor(jsonOptions.BaseDirectory)).As<IScriptPreprocessor>();
+
+            // TODO: Fix below so it's not piggybacking off of jsonOptions.
+            builder.RegisterInstance(new RepositoryDirectoryScriptPreprocessor(journalOptions.TargetDirectory)).As<IScriptPreprocessor>();
 
             return builder.Build();
         }

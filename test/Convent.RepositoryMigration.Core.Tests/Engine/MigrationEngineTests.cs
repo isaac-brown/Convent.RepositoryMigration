@@ -94,9 +94,9 @@ namespace Convent.RepositoryMigration.Core.Tests
                 actualResult.ScriptsExecuted.Should()
                                             .BeEquivalentTo(expectedScriptsExecuted);
 
-                journal.GetExecutedScriptsAsync()
-                       .Should()
-                       .BeEquivalentTo(expectedJournalEntries);
+                (await journal.GetExecutedScriptsAsync())
+                              .Should()
+                              .BeEquivalentTo(expectedJournalEntries);
             }
         }
 

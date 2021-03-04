@@ -7,6 +7,7 @@ namespace Convent.RepositoryMigration.Powershell
     using System.Threading;
     using System.Threading.Tasks;
     using Convent.RepositoryMigration.Core;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Represents the application.

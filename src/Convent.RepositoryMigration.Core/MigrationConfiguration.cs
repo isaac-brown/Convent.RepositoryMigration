@@ -6,6 +6,7 @@ namespace Convent.RepositoryMigration.Core
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Provides configuration for <see cref="MigrationEngine"/>.
@@ -18,14 +19,17 @@ namespace Convent.RepositoryMigration.Core
         /// <param name="scriptProviders">The script providers to use.</param>
         /// <param name="journal">The journal to use.</param>
         /// <param name="scriptExecutor">The script executor to use.</param>
+        /// <param name="postScriptExecutor">The pos-script executor to use.</param>
         public MigrationConfiguration(
             IEnumerable<IScriptProvider> scriptProviders,
             IJournal journal,
-            IScriptExecutor scriptExecutor)
+            IScriptExecutor scriptExecutor,
+            IPostScriptExecutor postScriptExecutor)
         {
             this.Journal = journal;
             this.ScriptExecutor = scriptExecutor;
             this.ScriptProviders = scriptProviders.ToList();
+            this.PostScriptExecutor = postScriptExecutor;
         }
 
         /// <summary>
@@ -42,5 +46,10 @@ namespace Convent.RepositoryMigration.Core
         /// Gets the script executor.
         /// </summary>
         public IScriptExecutor ScriptExecutor { get; }
+
+        /// <summary>
+        /// Gets the post-script executor.
+        /// </summary>
+        public IPostScriptExecutor PostScriptExecutor { get; }
     }
 }
